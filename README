@@ -1,0 +1,186 @@
+## Pirvanescu Sandra-Ioana 321CA
+
+#Entitati
+Am inceput prin a crea pentru fiecare din cele 3 entitati, actori, videouri si
+useri cate o clasa. Fiecare camp al acestor clase are explicatie pentru rolul lui.
+Cele 3 clase au campuri private si constructori prin care se face initializarea
+fiecarei entitati date in input. Pentru a initializa fiecare entitate noua, m-am
+folosit de clasa "ActionInputData", de unde am preluat informatiile necesare pentru
+entitatea respectiva si am transmis-o prin Getter-ul fiecarui camp ca parametru al
+constructorului noii entitati.
+Am facut Getter si Setter pentru fiecare camp al fiecarei clase pentru a le folosi
+la rezolvarea celor 3 tipuri de actiuni.
+Clasele TvShow si Movie extind clasa abstracta Video, in cadrul celor 2 
+implementandu-se metoda "ratingScore" prin care se calculeaza ratingul mediu al
+acelui video. In clasa "TvShow" am pus lista "usersRated" care contine numele
+utilizatorilor care au dat cel putin un rating acelui serial. 
+
+#Comparatori
+Pentru a sorta listele de entitati in functie de anumite campuri ale acestora,
+am creat alaturat, in acelasi pachet cu entitatea, clasele "VideoComparators", 
+"ActorsComparators" si "UsersComparators". Pentru fiecare tip de ordonare a
+listelor de entitati, am creat cate o clasa care implementeaza clasa "Comparator"
+si suprascrie metoda "compare" pentru a se realiza sortarea cu ajutorul "sort()".
+
+Pentru actori, am facut ordonari in functie de nume, de numarul de premii
+castigate de acesta si de rating-ul mediu.
+
+Pentru videouri, am facut ordonari in functie de nume, de numarul de aparitii
+in lista de favorite a utilizatorilor, de rating-ul video-ului, de numarul
+de vizualizari al video-ului si de durata. In cadrul acestei clase de comparatori
+am adaugat si clasele care sorteaza genurile existente in functie de totalul
+viualizarilor video-urilor care sunt de respectivele genuri si in functie de
+titlul acestor genuri (sa fie in ordine alfabetica).
+
+Pentru utilizatori, am imbinat ordonarea in functie de numarul de ratinguri dat de useri
+si ordonarea acestora alfabetic.
+
+#Actiuni
+Am creat 3 clase pentru fiecare tip de actiuni: "Commands", "Query" si 
+"Recommendation". 
+
+#Comenzi
+In cadrul clasei "Commands", am avut nevoie doar de parametrii metodelor pentru a
+rezolva cerintele, nefiind nevoie de toate listele de entitati.
+
+Pentru a adauga in lista de favorite a unui user un video, amandoua date ca parametru,
+am verificat, in primul rand, daca utilizatorul exista. Daca exista, am verificat daca
+utilizatorul a vizionat acel video accesand elementele din Map-ul ce contine titlurile
+video-urilor vizionate si numarul de vizionari. Daca utilizatorul a vazut video-ul,
+am verificat daca a mai fost adaugat la favorite video-ului. Daca nu, am adaugat
+la lista de favorite titlul video-ului si am afisat mesajul aferent. 
+
+Pentru a adauga o prima sau o noua vizualizare a unui video, am verificat daca
+utilizatorul exista. Daca exista, am verificat daca este prima vizionare a video-ului
+sau a mai fost vizionat. Daca este prima, vom pune in Map titlul si 1 (care reprezinta
+prima vizualizare). Daca a mai fost vizionat in trecut, crestem cu 1 vizualizarile 
+video-ului respectiv de catre utilizator.
+
+Pentru a acorda un rate unui videoclip, am creat 2 metode: una pentru a da rate
+unui film si una pentru a da rate unui sezon dintr-un serial. Am verificat ca
+utilizatorul exista, am verificat ca acesta a vazut video-ul si ca nu i-a mai 
+acordat rating in trecut. Daca toate aceste conditii sunt indeplinite, am adaugat
+in Map-ul filmului numele utilizatorului si nota lui si am incrementat numarul de 
+rating-uri oferite de utilizator.
+
+#Query
+In cadrul clasei "Query", am avut nevoie de listele entitatilor pe care le-am 
+transmis cu ajutorul constructorului.
+
+Pentru a sorta actorii in functie de media rating-urilor acestora, am folosit o
+copie a listei de actori din care, dupa ce am setat scorul fiecaruia, am eliminat
+actorii cu rating-ul mediu 0. In functie de input, am ordonat crescator sau 
+descrescator lista de actori ramasa in functie de rating-ul mediu si, ca al
+doilea criteriu, ordinea alfabetica in corespondenta cu modul de sortare a 
+rating-ului mediu. Am afisat primii "n" actori, "n" fiind dat in input.
+
+Pentru a sorta actorii in functie de premiile acestora, am folosit o
+copie a listei de actori din care am scos actorii ce nu aveau premiile
+date in input. Apoi, pentru actorii ramasi, am calculat si setat numarul
+de premii al fiecaruia. In functie de input, am ordonat crescator sau 
+descrescator lista de actori ramasa in functie de numarul de premii, ca al
+doilea criteriu, ordinea alfabetica in corespondenta cu modul de sortare a 
+numarului de premii. Am afisat primii "n" actori, "n" fiind dat in input.
+
+Pentru a sorta actorii in functie de descrierea acestora, am folosit o
+copie a listei de actori din care am scos actorii ce nu aveau cuvintele
+date in input. Am despartit descrierea fiecarui actor intr-o lista de Stringuri,
+fiecare cuvant reprezentand un element al listei. Daca un element al listei din 
+input nu se gasea in lista ce contine cuvintele din descriere, atunci acel actor
+a fost eliminat deoarece nu indeplineste cerinta. In functie de input, am ordonat
+crescator sau descrescator lista de actori ramasa in functie de numele actorului.
+Am afisat primii "n" actori, "n" fiind dat in input.
+
+Pentru a sorta video-urile in functie de rating, am folosit o copie a listei de
+filme/ seriale si le-am eliminat pe cele ce nu au avut premiera in anul dat ca input
+si care nu continea genul dat in input. Apoi, ca prim criteriu, am sortat in functie
+de rating si apoi in functie de titlul filmului/serialului. Ordinea a fost preluata
+din input. Am afisat primele "n" filme/seriale in functie de rating,
+"n" fiind dat in input .
+
+Pentru a sorta video-urile in functie de favorite, am folosit o copie a listei de
+filme/ seriale si le-am eliminat pe cele ce nu au avut premiera in anul dat ca input
+si care nu continea genul dat in input. Apoi, ca prim criteriu, am sortat in functie
+de cate aparitii are filmul/serialul in lista de favorite a utilizatorilor si apoi 
+in functie de titlul filmului/serialului. Ordinea a fost preluata din input.
+Am afisat primele "n" filme/seriale in functie de numarul de aparitii in listele
+de favorite ale utilizatorilor, "n" fiind dat in input.
+
+Pentru a sorta video-urile in functie de durata, am folosit o copie a listei de
+filme/ seriale si le-am eliminat pe cele ce nu au avut premiera in anul dat ca input
+si care nu continea genul dat in input. Apoi, ca prim criteriu, am sortat in functie
+de durata si apoi in functie de titlul filmului/serialului. Ordinea a fost preluata
+din input. Am afisat primele "n" filme/seriale in funtie de durata, "n" fiind dat
+in input.
+
+Pentru a sorta video-urile in functie de numarul de vizualizari, am folosit o copie a listei de
+filme/ seriale si le-am eliminat pe cele ce nu au avut premiera in anul dat ca input
+si care nu continea genul dat in input. Am setat pentru toate filmele/ serialele
+numarul lor de vizualizari. Ca prim criteriu, am sortat in functie
+de numarul de vizualizari si apoi in functie de titlul filmului/serialului. Ordinea a fost
+preluata din input. Am afisat primele "n" filme/seriale in funtie de numarul de vizualizari,
+"n" fiind dat in input.
+
+Pentru a sorta utilizatorii in functie de numarul de rating pe care l-au dat, am
+folosit o copie a listei de utilizatori si am eliminat utilizatorii care nu au
+acordat niciun rating.  Apoi, ca prim criteriu, am sortat utilizatorii in functie
+de numarul de rating-uri acordat si apoi in functie de numele lor. Ordinea a fost
+preluata din input. Am afisat primii "n" utilizatori in funtie de numarul de 
+rating-uri acordat, "n" fiind dat in input. 
+
+#Recomandari
+In cadrul clasei "Recommendation", am avut nevoie de listele entitatilor,
+(inafara de actori) pe care le-am transmis cu ajutorul constructorului.
+
+Pentru a primi recomandarea "standard", am cautat in listele filmelor si
+a serialelor, in aceasta ordine, primul video nevizionat de catre utilizatorul
+dat ca parametru si i-am afisat titlul.
+
+Pentru a primi recomandarea "best_unseen", am setat rating-urile tuturor filmelor si a
+serialelor si am eliminat video-urile pe care utilizatorul dat ca parametru le-a vizionat.
+Le-am pus pe cele ramase intr-o lista si am sortat lista de video-uri in functie
+de rating (descrescator, astfel incat primul element al listei sa aiba cel mai
+mare rating). Am afisat primul element.
+
+Pentru a primi recomandarea "popular", am verificat, in primul rand, ca utilizatorul
+dat ca parametru are subscriptia de tip "PREMIUM". Apoi, am sortat lista de genuri
+in functie de numarul de vizualizari care este dat de numarul de vizualizari
+pe care video-urile de acel gen le au. Am creat o lista cu toate video-urile si am 
+eliminat cele ce au fost deja vizionate de utilizator. Am afisat primul video din
+lista cu video-uri care indeplineste cerintele.
+
+Pentru a primi recomandarea "popular", am verificat, in primul rand, ca utilizatorul
+dat ca parametru are subscriptia de tip "PREMIUM". Am setat numarul de aparitii
+in listele de favorite ale utilizatorilor a fiecarui video si am eliminat cele care nu
+apar deloc in acele liste. Am creat o lista cu toate video-urile ramase si 
+am sortat-o in functie de numarul de aparitii in listele de favorite ale
+utilizatorilor. Am cautat in listele fimelor si a serialelor primul video
+cu numarul maxim si i-am afisat titlul.
+
+Pentru a primi recomandarea "popular", verificat, in primul rand, ca utilizatorul
+dat ca parametru are subscriptia de tip "PREMIUM". Am setat rating-ul fiecarui
+video si le-am eliminat pe cele cu rating-ulegal cu 0 si pe cele ce nu apartin genului
+dat ca input. Am creat o lista cu toate video-urile ramase si le-am sortat ca prim
+criteriu in functie de rating si apoi in functie de nume. Am aafisat toate
+video-urile upa sortare.
+
+#Helpers
+
+In clasa "Helpers" am implementat diferite metode care m-au ajutat la rezolvarea
+actiunilor. Inaintea fiecarei metode este data o scurta explicatie cu privire
+la functionalitatea ei.
+
+#Main
+
+Am creat cate o lista pentru fiecare entitate: actori, utilizatori, filme si
+seriale. Am adaugat in aceste liste toate entitatile date in input, initializand
+fiecare instanta cu ajutorul constructorului clasei respective.
+Creez instante pentru Query si Recommendation si, cu ajutorul contructorilor
+acestora, includ listele de entitati necesare rezolvarii.
+Apoi, pentru fiecare actiune data in input, verific ce tip din cele 3 este si
+aplic, in functie de informatiile din inputul actiunii, ce metoda trebuie.
+Am creat 3 metode pentru fiecare actiune ("doCommand", "doQuery", "doRecommendation")
+care returneaza un String cu rezultatul dupa efectuarea actiunii. 
+Dupa primirea output-ului, folosesc din clasa Writer metoda "FileWriter" pentru
+a pune rezultatul intr-un obiect JSON si pentru a-l adauga in lista rezultatelor
+comenzilor.
